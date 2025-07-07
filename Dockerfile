@@ -11,4 +11,4 @@ RUN curl -L -o /models/mistral.Q4_K_M.gguf https://huggingface.co/TheBloke/Mistr
 ENV DISABLE_MODEL_GALLERY=true
 
 # Set default command
-CMD ["/usr/bin/local-ai", "--models-path", "/models", "--config-file", "/models.yaml"]
+CMD ["local-ai", "--models-path", "/models", "--config-file", "/models.yaml"]
