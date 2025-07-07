@@ -1,0 +1,4 @@
+- name: mistral
+  backend: llama-cpp
+  parameters:
+    model: /models/mistral.Q4_K_M.gguf
