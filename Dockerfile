@@ -1,15 +1,14 @@
 FROM quay.io/go-skynet/local-ai:latest
 
-# Set environment variables
-ENV MODELS_PATH=/models
-ENV THREADS=1
-ENV PRELOAD_MODELS=true
-ENV DISABLE_MEDDLING_MODELSCAN=false
+# Copy your model configuration file
+COPY models.yaml /models.yaml
 
-# Create models directory
-RUN mkdir -p /models
+# (Optional) Copy your model weights if you're bundling them with the image
+# COPY mistral.Q4_K_M.gguf /models/mistral.Q4_K_M.gguf
 
-# Download the Mistral 7B Q4_K_M model
-RUN curl -L -o /models/mistral.Q4_K_M.gguf https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF/resolve/main/mistral-7b-instruct-v0.1.Q4_K_M.gguf
+# Disable the model gallery loading to avoid unmarshalling error
+ENV DISABLE_MODEL_GALLERY=true
 
-EXPOSE 8080
+# Set default command
+CMD ["/usr/bin/local-ai", "--models-path", "/models", "--config-file", "/models.yaml"]
+
